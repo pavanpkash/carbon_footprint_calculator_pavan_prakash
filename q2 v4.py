@@ -68,7 +68,7 @@ while not valid:
     if transport == "car":
         car_type = main_transport(transport)
         per_year = q2(car_type)
-        q3(per_year)
+        total_emissions = q3(per_year)
         break
     elif transport == "bus":
         how_often = main_transport(transport)
@@ -78,4 +78,5 @@ while not valid:
         break
     else:
         print("Please input car, bus, walk or bike: ")
+
 
