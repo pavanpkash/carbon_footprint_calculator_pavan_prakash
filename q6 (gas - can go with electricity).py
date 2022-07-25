@@ -8,16 +8,17 @@ def gas():
 - Both?: """).lower()
             if gas_type in ["9", "9kg"]:
                 bottle_size = 9
-                gas_per_month = int(input("\nhow many bottles do you use per month?"))
+                gas_per_month = validate_float("\nhow many bottles do you use per month?")
                 print(gas_per_month)
                 total_gas = bottle_size * gas_per_month
                 print("you use", total_gas, "kg of gas per month")
                 break
             elif gas_type in ["45", "45kg"]:
                 bottle_size = 45
-                gas_per_month = int(input("\nhow many bottles do you use per month?"))
+                gas_per_month = validate_float("\nhow many bottles do you use per month?")
                 print(gas_per_month)
-                total_gas = bottle_size * gas_per_month
+                total_gas_unrounded = bottle_size * gas_per_month
+                total_gas = round(total_gas_unrounded)
                 print("you use", total_gas, "kg of gas per month")
                 yearly_gas = total_gas * 12
                 print("this is", yearly_gas, "kg of gas per year")
@@ -27,6 +28,14 @@ def gas():
             print(gas_type)
         except ValueError:
             print("no")
+
+def validate_float(prompt):
+    while True:
+        try:
+            float_input = float(input(prompt))
+            return float_input
+        except ValueError:
+            print("Please input a number ")
 
 
 # main starts here
@@ -39,4 +48,4 @@ while not valid:
     if gas_used == "no":
         break
     else:
-        print("\nplease input yes or no")
+        print("\nPlease input yes or no")
