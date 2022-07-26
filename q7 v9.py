@@ -1,3 +1,5 @@
+import time
+
 def yes_no(question):
     valid = False
     while not valid:
@@ -42,15 +44,12 @@ def validate_float(prompt):
         except ValueError:
             print("Please input a number ")
 
-
-# main
-use_again = True
-while use_again:
+def yesno_flights():
     valid = False
     while not valid:
-        flights_yes_no = yes_no("Have you taken any flights this year?: ")
+        flights_yes_no = yes_no("\nHave you taken any flights this year?: ")
         if flights_yes_no == "yes":
-            flightnum = validate_float("How many flights have you taken this year?: ")
+            flightnum = validate_float("\nHow many flights have you taken this year?: ")
             # asks the user how many flights they have taken this year and will use that number in the flying def
             total_unrounded = flying(flightnum)
             total = round(total_unrounded)
@@ -59,17 +58,14 @@ while use_again:
             # passenger flights emit around 0.09 kilograms of co2 per passenger kilometre
             total_flight_emissions_unrounded = total * flight_emissions
             total_flight_emissions = round(total_flight_emissions_unrounded)
-            print("\nFrom air travel, you have emitted", total_flight_emissions, "kilograms of CO2 in the last year.")
-            break
+            return total_flight_emissions
         elif flights_yes_no == "no":
             print("You have not taken any flights this year")
             break
         else:
             print("\nPlease input yes or no")
+# main
 
-    play_again = yes_no("Would you like to run the program again?: ")
-    if play_again == "yes":
-        use_again = True
-    elif play_again == "no":
-        print("Thank you for using my program")
-        use_again = False
+total_flight_emissions = yesno_flights()
+time.sleep(1)
+print("\nFrom air travel, you have emitted", total_flight_emissions, "kilograms of CO2 in the last year.")

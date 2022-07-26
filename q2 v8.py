@@ -1,6 +1,7 @@
-# defs go here
+# Functions go here
+
 def main_transport(transport):
-    # this def asks the user what their main form of transport is
+    # this function asks the user what their main form of transport is
     valid = False
     while not valid:
         try:
@@ -10,21 +11,23 @@ def main_transport(transport):
 - Diesel
 - Electric
 """).lower()
+                # asks user whether they drive a petrol, diesel or electric car
                 if car_type in ["petrol", "diesel", "electric"]:
                     return car_type
                 else:
-                    print("please input petrol, diesel or electric")
+                    print("Please input petrol, diesel or electric.")
+                    # if user inputs incorrectly, they will be asked to enter something correct
             elif transport == "bus":
-                how_often = validate_float("""\nHow many times a week do you use the bus? (if once per day type 7, if twice a day type 14):\n""")
-                km_per_ride = validate_float("\nRoughly how many kilometres is one bus ride")
+                how_often = validate_float("""\nHow many times a week do you use the bus? (if once per day type 7, if twice a day type 14): \n""")
+                km_per_ride = validate_float("\nRoughly how many kilometres is one bus ride.")
                 bus_per_year_unrounded = how_often * 52 * km_per_ride
                 bus_per_year = round(bus_per_year_unrounded)
-                print("You travel around", bus_per_year, "kilometers per year in a bus")
+                print("You travel around", bus_per_year, "kilometers per year in a bus.")
                 bus_emissions_unrounded = bus_per_year * 105
                 bus_emissions = round(bus_emissions_unrounded)
                 # user_emissions = bus_emissions / 20 - don't need this as value is per passenger
                 # there is an average of around 20 people on a bus when travelling to and from work or school, so I have divided the emissions among the passengers
-                print("you emit", bus_emissions, "per year")
+                print("You emit", bus_emissions, "per year.")
                 # emissions = 822gm / km
                 return bus_emissions
             elif transport == "train":
@@ -42,7 +45,7 @@ def main_transport(transport):
         except ValueError:
             print("Please enter a number: ")
 
-def q2(car_type):
+def fuel(car_type):
     valid = False
     while not valid:
         try:
@@ -62,22 +65,22 @@ def q3(per_year):
     diesel_emissions = 171
     #the average diesel car emits 171 grams of co2 per km.
     if car_type == "petrol":
-        total_emissions_unrounded = per_year * petrol_emissions
-        total_emissions = round(total_emissions_unrounded)
-        total_emissions_in_kg_unrounded = total_emissions/1000
-        total_emissions_in_kg = round(total_emissions_in_kg_unrounded)
-        total_emissions_in_tonnes_unrounded = total_emissions_in_kg/1000
-        total_emissions_in_tonnes = round(total_emissions_in_tonnes_unrounded)
-        print("With a petrol car, you are emitting around", total_emissions_in_kg, "kilograms of CO2 per year. This is", total_emissions_in_tonnes, "tonnes of CO2 per year.")
-        return total_emissions
+        total_car_emissions_unrounded = per_year * petrol_emissions
+        total_car_emissions = round(total_car_emissions_unrounded)
+        total_car_emissions_in_kg_unrounded = total_car_emissions/1000
+        total_car_emissions_in_kg = round(total_car_emissions_in_kg_unrounded)
+        total_car_emissions_in_tonnes_unrounded = total_car_emissions_in_kg/1000
+        total_car_emissions_in_tonnes = round(total_car_emissions_in_tonnes_unrounded)
+        print("With a petrol car, you are emitting around", total_car_emissions_in_kg, "kilograms of CO2 per year. This is", total_car_emissions_in_tonnes, "tonnes of CO2 per year.")
+        return total_car_emissions_in_kg
     elif car_type == "diesel":
-        total_emissions_unrounded = per_year * diesel_emissions
-        total_emissions = round(total_emissions_unrounded)
-        total_emissions_in_kg = total_emissions / 1000
-        total_emissions_in_tonnes_unrounded = total_emissions_in_kg / 1000
-        total_emissions_in_tonnes = round(total_emissions_in_tonnes_unrounded)
-        print("With a diesel car, you are emitting around", total_emissions, "grams of CO2 per year. This is", total_emissions_in_tonnes, "tonnes of CO2 per year.")
-        return total_emissions
+        total_car_emissions_unrounded = per_year * diesel_emissions
+        total_car_emissions = round(total_car_emissions_unrounded)
+        total_car_emissions_in_kg = total_car_emissions / 1000
+        total_car_emissions_in_tonnes_unrounded = total_car_emissions_in_kg / 1000
+        total_car_emissions_in_tonnes = round(total_car_emissions_in_tonnes_unrounded)
+        print("With a diesel car, you are emitting around", total_car_emissions_in_kg, "kilograms of CO2 per year. This is", total_car_emissions_in_tonnes, "tonnes of CO2 per year.")
+        return total_car_emissions_in_kg
     elif car_type == "electric":
         print("With an electric car, you are emitting no CO2 at all! This is great for the environment.")
 
@@ -103,19 +106,27 @@ while not valid:
     if transport == "car":
         #should accept upper case or lower
         car_type = main_transport(transport)
-        per_year = q2(car_type)
-        total_emissions = q3(per_year)
+        per_year = fuel(car_type)
+        total_car_emissions_in_kg = q3(per_year)
+        bus_emissions = 0
+        train_emissions = 0
+
         break
     elif transport == "bus":
-        how_often = main_transport(transport)
+        bus_emissions = main_transport(transport)
+        train_emissions = 0
+        total_car_emissions_in_kg = 0
         break
     elif transport in ["bike", "walk"]:
         print("Nice, you're already helping the environment!")
         break
     elif transport == "train":
-        how_often = main_transport(transport)
+        train_emissions = main_transport(transport)
+        bus_emissions = main_transport(transport)
+        total_car_emissions_in_kg = 0
         break
     else:
-        print("Please input car, bus, walk or bike: ")
+        print("Please input car, bus, walk, bike, train or motorcycle: ")
 
-        # add a run again feature
+final_vehicle_emissions = bus_emissions + train_emissions + total_car_emissions_in_kg
+print("You emit a total of", final_vehicle_emissions, "kg of CO2 from vehicular travel")

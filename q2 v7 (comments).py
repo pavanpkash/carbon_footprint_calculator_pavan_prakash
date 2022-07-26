@@ -1,6 +1,7 @@
-# defs go here
+# Functions go here
+
 def main_transport(transport):
-    # this def asks the user what their main form of transport is
+    # this function asks the user what their main form of transport is
     valid = False
     while not valid:
         try:
@@ -10,21 +11,23 @@ def main_transport(transport):
 - Diesel
 - Electric
 """).lower()
+                # asks user whether they drive a petrol, diesel or electric car
                 if car_type in ["petrol", "diesel", "electric"]:
                     return car_type
                 else:
-                    print("please input petrol, diesel or electric")
+                    print("Please input petrol, diesel or electric.")
+                    # if user inputs incorrectly, they will be asked to enter something correct
             elif transport == "bus":
-                how_often = validate_float("""\nHow many times a week do you use the bus? (if once per day type 7, if twice a day type 14):\n""")
-                km_per_ride = validate_float("\nRoughly how many kilometres is one bus ride")
+                how_often = validate_float("""\nHow many times a week do you use the bus? (if once per day type 7, if twice a day type 14): \n""")
+                km_per_ride = validate_float("\nRoughly how many kilometres is one bus ride.")
                 bus_per_year_unrounded = how_often * 52 * km_per_ride
                 bus_per_year = round(bus_per_year_unrounded)
-                print("You travel around", bus_per_year, "kilometers per year in a bus")
+                print("You travel around", bus_per_year, "kilometers per year in a bus.")
                 bus_emissions_unrounded = bus_per_year * 105
                 bus_emissions = round(bus_emissions_unrounded)
                 # user_emissions = bus_emissions / 20 - don't need this as value is per passenger
                 # there is an average of around 20 people on a bus when travelling to and from work or school, so I have divided the emissions among the passengers
-                print("you emit", bus_emissions, "per year")
+                print("You emit", bus_emissions, "per year.")
                 # emissions = 822gm / km
                 return bus_emissions
             elif transport == "train":
@@ -42,7 +45,7 @@ def main_transport(transport):
         except ValueError:
             print("Please enter a number: ")
 
-def q2(car_type):
+def fuel(car_type):
     valid = False
     while not valid:
         try:
@@ -103,7 +106,7 @@ while not valid:
     if transport == "car":
         #should accept upper case or lower
         car_type = main_transport(transport)
-        per_year = q2(car_type)
+        per_year = fuel(car_type)
         total_emissions = q3(per_year)
         break
     elif transport == "bus":
@@ -116,6 +119,6 @@ while not valid:
         how_often = main_transport(transport)
         break
     else:
-        print("Please input car, bus, walk or bike: ")
+        print("Please input car, bus, walk, bike, train or motorcycle: ")
 
         # add a run again feature
