@@ -1,5 +1,15 @@
 import time
 
+
+def validate_float(prompt):
+    while True:
+        try:
+            float_input = float(input(prompt))
+            return float_input
+        except ValueError:
+            print("Please input a number ")
+
+
 def yes_no(question):
     valid = False
     while not valid:
@@ -17,7 +27,8 @@ def yes_no(question):
             print("Please answer yes / no")
         # if the user inputs anything else, they are told to answer yes or no
 
-def gas():
+
+def yearly_gas_used():
     valid = False
     while not valid:
         try:
@@ -25,10 +36,12 @@ def gas():
 - 9kg LPG bottles
 - 45kg LPG bottles
 - Both?: """).lower()
+            # asks user what size gas bottles they use
             if gas_type in ["9", "9kg"]:
                 bottle_size = 9
                 # 1kg of lpg gas is 2.95 kg of CO2
                 gas_per_month = validate_float("\nHow many bottles do you use per month?: ")
+                # asks user how many 9kg bottles they use per month
                 total_gas_unrounded = bottle_size * gas_per_month
                 total_gas = round(total_gas_unrounded)
                 print("\nYou use", total_gas, "kilograms of gas per month")
@@ -41,6 +54,7 @@ def gas():
             elif gas_type in ["45", "45kg"]:
                 bottle_size = 45
                 gas_per_month = validate_float("\nHow many bottles do you use per month?: ")
+                # asks user how many 45kg bottles they use per month
                 total_gas_unrounded = bottle_size * gas_per_month
                 total_gas = round(total_gas_unrounded)
                 print("\nYou use", total_gas, "kg of gas per month")
@@ -51,13 +65,15 @@ def gas():
                 co2_from_gas = round(co2_from_gas_unrounded)
                 return co2_from_gas
             elif gas_type in ["both", "b"]:
-                fortyfive_per_month = validate_float("\nHow many 45kg bottles do you use per month?: ")
+                forty_five_per_month = validate_float("\nHow many 45kg bottles do you use per month?: ")
+                # asks user how many 45kg bottles they use per month
                 nine_per_month = validate_float("\nHow many 9kg bottles do you use per month?: ")
-                fortyfive_bottle_size = 45
+                # asks user how many 9kg bottles they use per month
+                forty_five_bottle_size = 45
                 nine_bottle_size = 9
                 total_nine_gas = nine_bottle_size * nine_per_month
-                total_fortyfive_gas = fortyfive_bottle_size * fortyfive_per_month
-                combined_gas_unrounded = total_fortyfive_gas + total_nine_gas
+                total_forty_five_gas = forty_five_bottle_size * forty_five_per_month
+                combined_gas_unrounded = total_forty_five_gas + total_nine_gas
                 combined_gas = round(combined_gas_unrounded)
                 print("\nYou use", combined_gas, "kilograms of gas in one month.")
                 yearly_combined_gas = combined_gas * 12
@@ -71,25 +87,20 @@ def gas():
         except ValueError:
             print("no")
 
-def validate_float(prompt):
-    while True:
-        try:
-            float_input = float(input(prompt))
-            return float_input
-        except ValueError:
-            print("Please input a number ")
 
 def gas_yes_no():
     valid = False
     while not valid:
         gas_used = yes_no("\nDo you use LPG gas at home?: ")
+        # asks user if they use LPG gas as some do not
         if gas_used == "yes":
-            co2_from_gas = gas()
+            co2_from_gas = yearly_gas_used()
             return co2_from_gas
         elif gas_used == "no":
             break
 
 # main starts here
+
 
 co2_from_gas = gas_yes_no()
 time.sleep(1)

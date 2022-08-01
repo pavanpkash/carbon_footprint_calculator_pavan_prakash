@@ -2,9 +2,14 @@ def validate_float(prompt):
     while True:
         try:
             float_input = float(input(prompt))
-            return float_input
+            if float_input > 0:
+                return float_input
+            elif float_input <= 0:
+                print("Please input a number greater than 0")
+                # user must input a number greater than 0
         except ValueError:
             print("Please input a number ")
+            # user must input a number
 
 
 # main

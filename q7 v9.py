@@ -1,5 +1,6 @@
 import time
 
+
 def yes_no(question):
     valid = False
     while not valid:
@@ -17,24 +18,6 @@ def yes_no(question):
             print("Please answer yes / no")
         # if the user inputs anything else, they are told to answer yes or no
 
-def flying(flightnum):
-    flights = []
-    # creates a list including the kilometres of each flight
-    floyt = 1
-    # base number to make the input more appealing
-    while flightnum != 0:
-        # this will only run if the user has taken flights
-        while floyt <= flightnum:
-            # this is so the program will stop asking for the user's kilometres after their last flight
-            new_flight = validate_float("How many kilometres was flight {} (including return)?: ".format(floyt))
-            floyt = floyt + 1
-            flights.append(new_flight)
-            # adds the users kilometres to the list
-        if floyt >= flightnum:
-            break
-            # if the base number is greater or equal to the user's flights, the loop breaks
-    total = sum(flights)
-    return total
 
 def validate_float(prompt):
     while True:
@@ -44,6 +27,7 @@ def validate_float(prompt):
         except ValueError:
             print("Please input a number ")
 
+
 def yesno_flights():
     valid = False
     while not valid:
@@ -51,7 +35,7 @@ def yesno_flights():
         if flights_yes_no == "yes":
             flightnum = validate_float("\nHow many flights have you taken this year?: ")
             # asks the user how many flights they have taken this year and will use that number in the flying def
-            total_unrounded = flying(flightnum)
+            total_unrounded = flight_distance_calculator(flightnum)
             total = round(total_unrounded)
             print("\nYou have travelled a total of", total, "kilometres this year on plane.")
             flight_emissions = .09
@@ -64,6 +48,28 @@ def yesno_flights():
             break
         else:
             print("\nPlease input yes or no")
+
+
+def flight_distance_calculator(flightnum):
+    flights = []
+    # creates a list including the kilometres of each flight
+    base_num = 1
+    # base number to make the input more appealing
+    while flightnum != 0:
+        # this will only run if the user has taken flights
+        while base_num <= flightnum:
+            # this is so the program will stop asking for the user's kilometres after their last flight
+            new_flight = validate_float("How many kilometres was flight {} (including return)?: ".format(base_num))
+            base_num = base_num + 1
+            flights.append(new_flight)
+            # adds the users kilometres to the list
+        if base_num >= flightnum:
+            break
+            # if the base number is greater or equal to the user's flights, the loop breaks
+    total = sum(flights)
+    return total
+
+
 # main
 
 total_flight_emissions = yesno_flights()
