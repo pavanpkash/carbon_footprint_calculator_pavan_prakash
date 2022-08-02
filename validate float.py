@@ -1,3 +1,4 @@
+# This function makes sure the user has entered a number
 def validate_float(prompt):
     while True:
         try:

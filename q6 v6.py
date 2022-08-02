@@ -40,17 +40,18 @@ def gas_yes_no():
         elif gas_used == "no":
             break
 
-
+# asks user what type of gas bottles they used
+# calculates total kg of gas used per year
+# calculates total CO2 emitted from gas usage per year
 def yearly_gas_used():
     valid = False
     while not valid:
-        try:
-            gas_type = input("""\nWhat size gas bottles do you use:
-- 9kg LPG bottles
-- 45kg LPG bottles
-- Both?: """).lower()
+            gas_type = validate_float("""\nWhat size gas bottles do you use:
+1) 9kg LPG bottles
+2) 45kg LPG bottles
+3) Both?: """)
             # asks user what size gas bottles they use
-            if gas_type in ["9", "9kg"]:
+            if gas_type == 1:
                 bottle_size = 9
                 # 1kg of lpg gas is 2.95 kg of CO2
                 gas_per_month = validate_float("\nHow many bottles do you use per month?: ")
@@ -64,7 +65,7 @@ def yearly_gas_used():
                 co2_from_gas_unrounded = yearly_gas * 2.95
                 co2_from_gas = round(co2_from_gas_unrounded)
                 return co2_from_gas
-            elif gas_type in ["45", "45kg"]:
+            elif gas_type == 2:
                 bottle_size = 45
                 gas_per_month = validate_float("\nHow many bottles do you use per month?: ")
                 # asks user how many 45kg bottles they use per month
@@ -77,7 +78,7 @@ def yearly_gas_used():
                 co2_from_gas_unrounded = yearly_gas * 2.95
                 co2_from_gas = round(co2_from_gas_unrounded)
                 return co2_from_gas
-            elif gas_type in ["both", "b"]:
+            elif gas_type == 3:
                 forty_five_per_month = validate_float("\nHow many 45kg bottles do you use per month?: ")
                 # asks user how many 45kg bottles they use per month
                 nine_per_month = validate_float("\nHow many 9kg bottles do you use per month?: ")
@@ -97,11 +98,10 @@ def yearly_gas_used():
                 return co2_from_gas
             else:
                 print("\nPlease enter one of these")
-        except ValueError:
-            print("no")
 
 
 # main starts here
+
 co2_from_gas = gas_yes_no()
 time.sleep(1)
 print("This is", co2_from_gas, "kilograms of CO2 per year.")

@@ -1,3 +1,4 @@
+# This function makes sure that the user inputs yes or no
 def yes_no(question):
     valid = False
     while not valid:
