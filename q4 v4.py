@@ -37,34 +37,32 @@ def yes_no(question):
 # asks user how many people live in their house
 # calculates individual electricity usage
 def electricity_questions():
-    valid = False
-    while not valid:
-        does_user_know_electricity = yes_no(
-            "\nDo you know how much electricity you user per month "
-            "(if no, we will use the average): ")
-        # asks user if they know their electricity usage
-        # this is mainly for the younger audience,
-        # who don't know their electricity usage
-        if does_user_know_electricity == "yes":
-            monthly_household_electricity_usage = validate_float(
-                "How much electricity does your household "
-                "use monthly in kWh (check your electric bill)?: ")
-            # asks for monthly household electricity usage
-            family_members = validate_float(
-                "How many people live in your house?: ")
-            # asks for how many people they share the house with
-            total_electricity_emissions = individual_electricity_calculator(
-                monthly_household_electricity_usage, family_members)
-            return total_electricity_emissions
-        elif does_user_know_electricity == "no":
-            monthly_household_electricity_usage = 909
-            # average monthly electricity usage for an individual is 909 kWh
-            print("The average electricity usage of individuals in NZ "
-                  "is 909kWh per month. ")
-            time.sleep(1)
-            total_electricity_emissions = individual_electricity_calculator(
-                monthly_household_electricity_usage, 1)
-            return total_electricity_emissions
+    does_user_know_electricity = yes_no(
+        "\nDo you know how much electricity you user per month "
+        "(if no, we will use the average): ")
+    # asks user if they know their electricity usage
+    # this is mainly for the younger audience,
+    # who don't know their electricity usage
+    if does_user_know_electricity == "yes":
+        monthly_household_electricity_usage = validate_float(
+            "How much electricity does your household "
+            "use monthly in kWh (check your electric bill)?: ")
+        # asks for monthly household electricity usage
+        family_members = validate_float(
+            "How many people live in your house?: ")
+        # asks for how many people they share the house with
+        total_electricity_emissions = individual_electricity_calculator(
+            monthly_household_electricity_usage, family_members)
+        return total_electricity_emissions
+    elif does_user_know_electricity == "no":
+        monthly_household_electricity_usage = 909
+        # average monthly electricity usage for an individual is 909 kWh
+        print("The average electricity usage of individuals in NZ "
+              "is 909kWh per month. ")
+        time.sleep(1)
+        total_electricity_emissions = individual_electricity_calculator(
+            monthly_household_electricity_usage, 1)
+        return total_electricity_emissions
 
 
 # tells user their individual electricity usage per month and year

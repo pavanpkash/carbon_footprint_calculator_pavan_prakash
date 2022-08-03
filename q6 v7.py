@@ -35,18 +35,16 @@ def yes_no(question):
 
 # asks user if they use LPG gas or not
 def gas_yes_no():
-    valid = False
-    while not valid:
-        gas_used = yes_no("\nDo you use LPG gas at home?: ")
-        # asks user if they use LPG gas as some do not
-        if gas_used == "yes":
-            co2_from_gas = yearly_gas_used()
-            return co2_from_gas
-        elif gas_used == "no":
-            co2_from_gas = 0
-            print("Great! LPG comes from drilling oil and gas wells. "
-                  "It is a fossil fuel which harms the environment.")
-            return co2_from_gas
+    gas_used = yes_no("\nDo you use LPG gas at home?: ")
+    # asks user if they use LPG gas as some do not
+    if gas_used == "yes":
+        co2_from_gas = yearly_gas_used()
+        return co2_from_gas
+    elif gas_used == "no":
+        co2_from_gas = 0
+        print("Great! LPG comes from drilling oil and gas wells. "
+              "It is a fossil fuel which harms the environment.")
+        return co2_from_gas
 
 # asks user what type of gas bottles they used
 # calculates total kg of gas used per year

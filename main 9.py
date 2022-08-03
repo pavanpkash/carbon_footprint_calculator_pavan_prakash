@@ -29,10 +29,10 @@ def validate_float(prompt):
             if float_input > 0:
                 return float_input
             elif float_input <= 0:
-                print("Please input a number greater than 0")
+                print("Please input a number greater than 0.")
                 # user must input a number greater than 0
         except ValueError:
-            print("Please input a number ")
+            print("Please input a number greater than 0.")
             # user must input a number
 
 
@@ -47,6 +47,7 @@ def instructions():
 
 
 # This function asks the user what their main form of transport is
+# and calculates total mileage for the year
 def main_transport():
     valid = False
     while not valid:
@@ -166,41 +167,39 @@ def petrol_diesel_emissions():
                 vehicle_emissions = 0
                 return vehicle_emissions
         else:
-            print("Please input 1-3")
+            print("Please input a number between 1-3")
 
 
 # asks user if they know how much electricity they use
 # asks user how many people live in their house
 # calculates individual electricity usage
 def electricity_questions():
-    valid = False
-    while not valid:
-        does_user_know_electricity = yes_no(
-            "\nDo you know how much electricity you user per month "
-            "(if no, we will use the average): ")
-        # asks user if they know their electricity usage
-        # this is mainly for the younger audience,
-        # who don't know their electricity usage
-        if does_user_know_electricity == "yes":
-            monthly_household_electricity_usage = validate_float(
-                "How much electricity does your household "
-                "use monthly in kWh (check your electric bill)?: ")
-            # asks for monthly household electricity usage
-            family_members = validate_float(
-                "How many people live in your house?: ")
-            # asks for how many people they share the house with
-            total_electricity_emissions = individual_electricity_calculator(
-                monthly_household_electricity_usage, family_members)
-            return total_electricity_emissions
-        elif does_user_know_electricity == "no":
-            monthly_household_electricity_usage = 909
-            # average monthly electricity usage for an individual is 909 kWh
-            print("The average electricity usage of individuals in NZ "
-                  "is 909kWh per month. ")
-            time.sleep(1)
-            total_electricity_emissions = individual_electricity_calculator(
-                monthly_household_electricity_usage, 1)
-            return total_electricity_emissions
+    does_user_know_electricity = yes_no(
+        "\nDo you know how much electricity you user per month "
+        "(if no, we will use the average): ")
+    # asks user if they know their electricity usage
+    # this is mainly for the younger audience,
+    # who don't know their electricity usage
+    if does_user_know_electricity == "yes":
+        monthly_household_electricity_usage = validate_float(
+            "How much electricity does your household "
+            "use monthly in kWh (check your electric bill)?: ")
+        # asks for monthly household electricity usage
+        family_members = validate_float(
+            "How many people live in your house?: ")
+        # asks for how many people they share the house with
+        total_electricity_emissions = individual_electricity_calculator(
+            monthly_household_electricity_usage, family_members)
+        return total_electricity_emissions
+    elif does_user_know_electricity == "no":
+        monthly_household_electricity_usage = 909
+        # average monthly electricity usage for an individual is 909 kWh
+        print("The average electricity usage of individuals in NZ "
+              "is 909kWh per month. ")
+        time.sleep(1)
+        total_electricity_emissions = individual_electricity_calculator(
+            monthly_household_electricity_usage, 1)
+        return total_electricity_emissions
 
 
 # tells user their individual electricity usage per month and year
@@ -228,18 +227,16 @@ def individual_electricity_calculator(monthly_household_electricity_usage,
 
 # asks user if they use LPG gas or not
 def gas_yes_no():
-    valid = False
-    while not valid:
-        gas_used = yes_no("\nDo you use LPG gas at home?: ")
-        # asks user if they use LPG gas as some do not
-        if gas_used == "yes":
-            co2_from_gas = yearly_gas_used()
-            return co2_from_gas
-        elif gas_used == "no":
-            co2_from_gas = 0
-            print("Great! LPG comes from drilling oil and gas wells. "
-                  "It is a fossil fuel which harms the environment.")
-            return co2_from_gas
+    gas_used = yes_no("\nDo you use LPG gas at home?: ")
+    # asks user if they use LPG gas as some do not
+    if gas_used == "yes":
+        co2_from_gas = yearly_gas_used()
+        return co2_from_gas
+    elif gas_used == "no":
+        co2_from_gas = 0
+        print("Great! LPG comes from drilling oil and gas wells. "
+              "It is a fossil fuel which harms the environment.")
+        return co2_from_gas
 
 # asks user what type of gas bottles they used
 # calculates total kg of gas used per year
@@ -299,7 +296,7 @@ def yearly_gas_used():
             co2_from_gas = round(yearly_combined_gas * 2.95)
             return co2_from_gas
         else:
-            print("\nPlease enter one of these")
+            print("\nPlease enter a number between 1-3")
 
 
 # asks user if they have taken any flights this year
