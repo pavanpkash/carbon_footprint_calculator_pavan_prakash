@@ -30,26 +30,24 @@ def validate_float(prompt):
 
 # asks user if they have taken any flights this year
 def yesno_flights():
-    valid = False
-    while not valid:
-        flights_yes_no = yes_no("\nHave you taken any flights this year?: ")
-        if flights_yes_no == "yes":
-            flight_num = validate_float(
-                "\nHow many flights have you taken this year?: ")
-            # asks the user how many flights they have taken this year
-            total = round(flight_distance_calculator(flight_num))
-            print("\nYou have travelled a total of", total,
-                  "kilometres this year on plane.")
-            flight_emissions = .09
-            # flights emit 0.09 kilograms of co2 per passenger kilometre
-            total_flight_emissions = round(total * flight_emissions)
-            return total_flight_emissions
-        elif flights_yes_no == "no":
-            total_flight_emissions = 0
-            print("You have not taken any flights this year")
-            return total_flight_emissions
-        else:
-            print("\nPlease input yes or no")
+    flights_yes_no = yes_no("\nHave you taken any flights this year?: ")
+    if flights_yes_no == "yes":
+        flight_num = validate_float(
+            "\nHow many flights have you taken this year?: ")
+        # asks the user how many flights they have taken this year
+        total = round(flight_distance_calculator(flight_num))
+        print("\nYou have travelled a total of", total,
+              "kilometres this year on plane.")
+        flight_emissions = .09
+        # flights emit 0.09 kilograms of co2 per passenger kilometre
+        total_flight_emissions = round(total * flight_emissions)
+        return total_flight_emissions
+    elif flights_yes_no == "no":
+        total_flight_emissions = 0
+        print("You have not taken any flights this year")
+        return total_flight_emissions
+    else:
+        print("\nPlease input yes or no")
 
 
 # asks user how many kilometres each flight was, depending on user input

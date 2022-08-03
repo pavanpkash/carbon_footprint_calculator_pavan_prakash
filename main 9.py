@@ -59,12 +59,12 @@ def main_transport():
 5) Train
 6) Motorcycle\n""")
         if transport == 1:
-            # car
+            # if user selects car
             vehicle_emissions = petrol_diesel_emissions()
             return vehicle_emissions
 
         elif transport == 2:
-            # bus
+            # if user selects bus
             how_often = validate_float(
                 "\nHow many times a week do you use the bus? "
                 "(if once per day type 7, if twice a day type 14): ")
@@ -82,13 +82,13 @@ def main_transport():
             return vehicle_emissions
 
         elif transport in [3, 4]:
-            # walk, bike
+            # if user selects walk, bike
             print("Nice, you're already helping the environment!")
             vehicle_emissions = 0
             return vehicle_emissions
 
         elif transport == 5:
-            # train
+            # if user selects train
             how_often = validate_float(
                 "\nHow many times a week do you use the train? "
                 "(if once per day type 7, if twice a day type 14): ")
@@ -106,7 +106,7 @@ def main_transport():
             return vehicle_emissions
 
         elif transport == 6:
-            # motorcycle
+            # if user selects motorcycle
             km_per_week = round(validate_float(
                 "\nHow many kilometres do you ride per week?: \n"))
             per_year = km_per_week * 52
@@ -144,7 +144,7 @@ def petrol_diesel_emissions():
                   "which is around", per_year, "kilometres per year.")
             # calculate km driven per year
             if car_type == 1:
-                # petrol
+                # if user selects petrol
                 # multiply petrol emissions by km per year
                 vehicle_emissions = round(per_year * petrol_emissions)
 
@@ -153,7 +153,7 @@ def petrol_diesel_emissions():
                       vehicle_emissions, "kilograms of CO2 per year.")
                 return vehicle_emissions
             elif car_type == 2:
-                # diesel
+                # if user selects diesel
                 # multiply diesel emissions by km per year
                 vehicle_emissions = round(per_year * diesel_emissions)
                 time.sleep(1)
@@ -161,7 +161,7 @@ def petrol_diesel_emissions():
                       vehicle_emissions, "kilograms of CO2 per year.")
                 return vehicle_emissions
             elif car_type == 3:
-                # electric
+                # if user selects electric
                 print("With an electric car, you are emitting no CO2 at all! "
                       "This is great for the environment.")
                 vehicle_emissions = 0
@@ -301,26 +301,24 @@ def yearly_gas_used():
 
 # asks user if they have taken any flights this year
 def yesno_flights():
-    valid = False
-    while not valid:
-        flights_yes_no = yes_no("\nHave you taken any flights this year?: ")
-        if flights_yes_no == "yes":
-            flight_num = validate_float(
-                "\nHow many flights have you taken this year?: ")
-            # asks the user how many flights they have taken this year
-            total = round(flight_distance_calculator(flight_num))
-            print("\nYou have travelled a total of", total,
-                  "kilometres this year on plane.")
-            flight_emissions = .09
-            # flights emit 0.09 kilograms of co2 per passenger kilometre
-            total_flight_emissions = round(total * flight_emissions)
-            return total_flight_emissions
-        elif flights_yes_no == "no":
-            total_flight_emissions = 0
-            print("You have not taken any flights this year")
-            return total_flight_emissions
-        else:
-            print("\nPlease input yes or no")
+    flights_yes_no = yes_no("\nHave you taken any flights this year?: ")
+    if flights_yes_no == "yes":
+        flight_num = validate_float(
+            "\nHow many flights have you taken this year?: ")
+        # asks the user how many flights they have taken this year
+        total = round(flight_distance_calculator(flight_num))
+        print("\nYou have travelled a total of", total,
+              "kilometres this year on plane.")
+        flight_emissions = .09
+        # flights emit 0.09 kilograms of co2 per passenger kilometre
+        total_flight_emissions = round(total * flight_emissions)
+        return total_flight_emissions
+    elif flights_yes_no == "no":
+        total_flight_emissions = 0
+        print("You have not taken any flights this year")
+        return total_flight_emissions
+    else:
+        print("\nPlease input yes or no")
 
 
 # asks user how many kilometres each flight was, depending on user input
@@ -393,6 +391,7 @@ def solutions(carbon_footprint):
 
 # main starts here
 
+# only loops again when user wants to use the program again
 use_again = True
 while use_again:
 
